@@ -69,7 +69,7 @@ function isConsonant(letter) {
 }
 
 // Converts an integer (passed as a string to avoid scientific notation issues)
-function toWords(numberAsString) {
+export function toWords(numberAsString) {
   let bn = new BigNumber(numberAsString.toString());
   let numberArray = fromBase10(bn, syllables.length);
   let result = '';
@@ -91,7 +91,7 @@ function toWords(numberAsString) {
 }
 
 // Converts a valid phrase back into a string
-function fromWords(words) {
+export function fromWords(words) {
   let wordArray = words.toLowerCase()
     .replace(/[bcdfghjklmnprstvwz][bcdfghjklmnprstvwz]/gi,function(r){ let n = Math.floor(r.length/2); return r.substr(0,n) + ' ' + r.substr(n,n)})
     .replace(/[a-z]{6}|[a-z]{4}/gi,function(r){ let n = Math.floor(r.length/2); return r.substr(0,n) + ' ' + r.substr(n,n)})
@@ -106,6 +106,9 @@ function fromWords(words) {
   return result.toString(10);
 }
 
-var random = Math.floor(Math.random()*Math.pow(3456,5)).toString()
-toWords(random)
+export function getRandomWords() {
+  var random = Math.floor(Math.random()*Math.pow(3456,5)).toString()
+  return toWords(random)
+}
+
 
