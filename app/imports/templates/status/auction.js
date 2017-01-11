@@ -6,12 +6,11 @@ Template['status-auction'].onCreated(function() {
 });
 
 Template['status-auction'].events({
-  'submit .new-bid'(event) {
-    event.preventDefault();
-    
-    const target = event.target;
-    const bidAmount = EthTools.toWei(target.bidAmount.value);
-    const depositAmount = EthTools.toWei(target.depositAmount.value);
+  'click .new-bid'() {
+    const bidInput = document.getElementsByName("bidAmount")[0];
+    const depositInput = document.getElementsByName("depositAmount")[0];
+    const bidAmount = EthTools.toWei(bidInput.value);
+    const depositAmount = EthTools.toWei(depositInput.value);
     const name = Session.get('searched');
     const masterPassword = 'asdf';
     const template = Template.instance();
