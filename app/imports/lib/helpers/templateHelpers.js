@@ -65,3 +65,6 @@ Template.registerHelper('formatNumber', function(number, format){
     if(_.isFinite(number))
         return numeral(number).format(format);
 });
+
+
+Template.registerHelper('fullName', name => `${name}.eth`);

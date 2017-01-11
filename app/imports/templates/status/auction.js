@@ -43,18 +43,17 @@ Template['status-auction'].events({
             return;
           }
           if (isSuccessful) {
-            MyBids.insert({
-              txid,
-              name,
-              owner,
-              fullName: name + '.eth',
-              bidAmount,
-              depositAmount,
-              date: Date.now(),
-              masterPassword,
-              bid: bid,
-              revealed: false
-            });
+            MyBids.insert(
+              Object.assign(
+                {
+                  masterPassword,
+                  date: Date.now(),
+                  depositAmount,
+                  txid
+                },
+                bid
+              )
+            );
           } else {
             alert('The transaction failed')
           }
