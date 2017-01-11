@@ -7,6 +7,8 @@ A library for encoding and decoding large numbers into a pronounceable, high den
 
 */
 
+import BigNumber from 'bignumber.js';
+
 // Creates the syllable array
 var syllables = [];
 var consonants = 'bcdfghjklmnprstvwz'; // consonants except hard to speak ones
