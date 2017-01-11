@@ -1,19 +1,22 @@
 import { registrar } from '/imports/lib/ethereum';
 import Helpers from '/imports/lib/helpers/helperFunctions';
 
+function generateSalt() {
+  return Math.floor(Math.random() * Math.pow(3500,5)).toString();
+}
+
 Template['status-auction'].onCreated(function() {
   TemplateVar.set(this, 'entryData', Template.instance().data.entry);
 });
 
 Template['status-auction'].events({
-  'submit .new-bid'(event) {
-    event.preventDefault();
-    
-    const target = event.target;
-    const bidAmount = EthTools.toWei(target.bidAmount.value);
-    const depositAmount = EthTools.toWei(target.depositAmount.value);
+  'click .new-bid'() {
+    const bidInput = document.getElementsByName("bidAmount")[0];
+    const depositInput = document.getElementsByName("depositAmount")[0];
+    const bidAmount = EthTools.toWei(bidInput.value);
+    const depositAmount = EthTools.toWei(depositInput.value);
     const name = Session.get('searched');
-    const masterPassword = 'asdf';
+    const secret = generateSalt();
     const template = Template.instance();
     let accounts = EthAccounts.find().fetch();
     
@@ -22,8 +25,7 @@ Template['status-auction'].events({
     } else {
       TemplateVar.set(template, 'bidding', true)
       let owner = accounts[0].address;
-      let bid = registrar.bidFactory(name, owner, bidAmount,
-        masterPassword);//todo: derive the salt using the password and the name
+      let bid = registrar.bidFactory(name, owner, bidAmount, secret);
       console.log('Bid: ', bid);
       registrar.submitBid(bid, {
         value: depositAmount, 
@@ -46,7 +48,6 @@ Template['status-auction'].events({
             MyBids.insert(
               Object.assign(
                 {
-                  masterPassword,
                   date: Date.now(),
                   depositAmount,
                   txid

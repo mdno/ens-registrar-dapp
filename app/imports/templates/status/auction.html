@@ -8,12 +8,8 @@
         <h2>
             Submit bid
         </h2>
-        <form class="new-bid">
           <p>
             Submit a bid for a chance of obtaining this domain name.
-          </p>
-          <p>
-            (temp bid password): <strong>"asdf"</strong> (todo: generate it)
           </p>
           <p>
             Bid amount
@@ -28,14 +24,13 @@
             Deposit amount
             <input type="text" min="0" step="any" name="depositAmount" placeholder="0.0" class="dapp-large" pattern="[0-9\.,]*">        
           </p>
-          <button type="submit" class="dapp-block-button" disabled="{{bidding}}">
+          <button class="dapp-block-button new-bid" disabled="{{bidding}}">
             {{#if bidding}}
               Bidding...
             {{else}}
               Bid
             {{/if}}
           </button>
-        </form>
     </div>
 </template>
 
